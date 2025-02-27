@@ -1,15 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
-import axios from "axios";
 import Dialog from "../../components/Dialog";
-import Button from "../../components/Button";
-import config from "../../../config";
+import ListItem from "../../components/ListItem";
 import CryptoDetail from "../CryptoDetail";
-import up from "../../assets/images/up.svg";
-import down from "../../assets/images/down.svg";
 import { getCryptosList } from "../../services/service";
-
-const GECKO_API_URL = config["GECKO_API_URL"];
-const GECKO_QUERY_PARAM = config["GECKO_QUERY_PARAM"];
 
 export interface listObject {
     id: string;
@@ -81,50 +74,13 @@ export const CryptoDashboard = () => {
                     <ol>
                         {watchedList.map((item, index) => {
                             return (
-                                <li key={item.id} className="flex p-1 border m-1 rounded">
-                                    <img
-                                        src={item.image}
-                                        alt={item.name}
-                                        className="border border-black rounded-full w-12 h-12"
-                                    />
-                                    <div className="m-2 mx-6 text-3xl">
-                                        {item.name.split(" ")[0]}
-                                    </div>
-                                    <div className="flex flex-col text-left">
-                                        <div>
-                                            Current Value:
-                                            <span className="font-bold">
-                                                {" $" + item.current_price}usd
-                                            </span>
-                                        </div>
-                                        <div className="flex">
-                                            Changed in last 24H:
-                                            <span className="font-bold">
-                                                {" " + item.price_change_percentage_24h}%
-                                            </span>
-                                            <img
-                                                src={
-                                                    item.price_change_percentage_24h > 0 ? up : down
-                                                }
-                                                alt={
-                                                    item.price_change_percentage_24h > 0
-                                                        ? "Up"
-                                                        : "Down"
-                                                }
-                                                className="h-5 w-5"
-                                            />
-                                        </div>
-                                    </div>
-                                    <Button
-                                        className="ml-auto"
-                                        onClick={() => openDetail(index)}
-                                        label="Show Details"
-                                    />
-                                    <Button
-                                        onClick={() => removeFromWatchList(index)}
-                                        label="Remove from Watched list"
-                                    />
-                                </li>
+                                <ListItem
+                                    item={item}
+                                    index={index}
+                                    openDetail={openDetail}
+                                    removeFromWatchList={removeFromWatchList}
+                                    watchedList={true}
+                                />
                             );
                         })}
                     </ol>
@@ -136,50 +92,12 @@ export const CryptoDashboard = () => {
                     <ol>
                         {coinList.map((item, index) => {
                             return (
-                                <li key={item.id} className="flex p-1 border m-1 rounded">
-                                    <img
-                                        src={item.image}
-                                        alt={item.name}
-                                        className="border border-black rounded-full w-12 h-12"
-                                    />
-                                    <div className="m-2 mx-6 text-3xl">
-                                        {item.name.split(" ")[0]}
-                                    </div>
-                                    <div className="flex flex-col text-left">
-                                        <div>
-                                            Current Value:
-                                            <span className="font-bold">
-                                                {" $" + item.current_price}usd
-                                            </span>
-                                        </div>
-                                        <div className="flex">
-                                            Changed in last 24H:
-                                            <span className="font-bold">
-                                                {" " + item.price_change_percentage_24h}%
-                                            </span>
-                                            <img
-                                                src={
-                                                    item.price_change_percentage_24h > 0 ? up : down
-                                                }
-                                                alt={
-                                                    item.price_change_percentage_24h > 0
-                                                        ? "Up"
-                                                        : "Down"
-                                                }
-                                                className="h-5 w-5"
-                                            />
-                                        </div>
-                                    </div>
-                                    <Button
-                                        className="ml-auto"
-                                        onClick={() => openDetail(index)}
-                                        label="Show Details"
-                                    />
-                                    <Button
-                                        onClick={() => addToWatchList(index)}
-                                        label="Add to Watched list"
-                                    />
-                                </li>
+                                <ListItem
+                                    item={item}
+                                    index={index}
+                                    openDetail={openDetail}
+                                    addToWatchList={addToWatchList}
+                                />
                             );
                         })}
                     </ol>
