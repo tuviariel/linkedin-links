@@ -1,10 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
+import axios from "axios";
 import Dialog from "../../components/Dialog";
 import Button from "../../components/Button";
 import config from "../../../config";
 import CryptoDetail from "../CryptoDetail";
-import up from "../../assets/up.svg";
-import down from "../../assets/down.svg";
+import up from "../../assets/images/up.svg";
+import down from "../../assets/images/down.svg";
+import { getCryptosList } from "../../services/service";
 
 const GECKO_API_URL = config["GECKO_API_URL"];
 const GECKO_QUERY_PARAM = config["GECKO_QUERY_PARAM"];
@@ -24,16 +26,13 @@ export const CryptoDashboard = () => {
     useEffect(() => {
         const getList = async () => {
             try {
-                let queryParams = GECKO_QUERY_PARAM;
-                queryParams = queryParams + "&vs_currency=usd";
-
-                const res = await fetch(`${GECKO_API_URL}/coins/markets${queryParams}`);
-                if (!res.ok) {
+                let queryParams = { vs_currency: "usd" };
+                const res: any = await getCryptosList(queryParams);
+                if (!res.data) {
                     throw new Error(`Response status: ${res.status}`);
                 }
-                const json = await res.json();
-                setCoinList(json);
-                console.log(json);
+                setCoinList(res.data);
+                console.log(res);
             } catch (err: any) {
                 console.error(err.message);
             }
@@ -72,7 +71,7 @@ export const CryptoDashboard = () => {
             return arr;
         });
     };
-    console.log(watchedList);
+    // console.log(modalCurrencyObject);
     return (
         <>
             <h2 className="font-semibold text-3xl mb-12 underline">CryptoCurrencies from Gecko</h2>

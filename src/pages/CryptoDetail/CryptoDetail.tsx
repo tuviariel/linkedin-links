@@ -1,8 +1,10 @@
-import { useEffect, memo, useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 import config from "../../../config";
 import Select from "../../components/Select";
 import { listObject } from "../CryptoDashboard/CryptoDashboard";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
+import { getCryptosInfoById } from "../../services/service";
 const GECKO_API_URL = config["GECKO_API_URL"];
 const GECKO_QUERY_PARAM = config["GECKO_QUERY_PARAM"];
 
@@ -19,21 +21,22 @@ export const CryptoDetail: React.FC<CryptoDetailProps> = (props) => {
     useEffect(() => {
         const getData = async () => {
             try {
-                let queryParams = GECKO_QUERY_PARAM;
-                queryParams = queryParams + `&vs_currency=${currency}&days=${days}`;
-                const res = await fetch(
-                    `${GECKO_API_URL}/coins/${currencyObject?.id}/market_chart${queryParams}`
-                );
-                if (!res.ok) {
-                    throw new Error(`Response status: ${res.status}`);
-                }
-                const json = await res.json();
-                const data = json.prices.map((arr: any[]) => {
-                    const date = new Date(arr[0]);
-                    return { time: date.toLocaleDateString("he-IL"), price: arr[1] };
-                });
-                setCurrencyData(data);
-                console.log(data);
+                let queryParams = { vs_currency: currency, days: days };
+                // queryParams = queryParams + `&vs_currency=${currency}&days=${days}`;
+                if (currencyObject?.id) {
+                    const res = await getCryptosInfoById(queryParams, currencyObject.id);
+                    // axios.get(
+                    //     `${GECKO_API_URL}/coins/${currencyObject?.id}/market_chart${queryParams}`
+                    // );
+                    if (!res.data) {
+                        throw new Error(`Response status: ${res.status}`);
+                    }
+                    const currData = res.data.prices.map((arr: any[]) => {
+                        const date = new Date(arr[0]);
+                        return { time: date.toLocaleDateString("he-IL"), price: arr[1] };
+                    });
+                    setCurrencyData(currData);
+                } // console.log(currData);
             } catch (err: any) {
                 console.error(err.message);
             }
