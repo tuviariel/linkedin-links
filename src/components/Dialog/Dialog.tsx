@@ -1,4 +1,4 @@
-import { ReactElement, memo } from "react";
+import { ReactElement } from "react";
 interface DialogProps {
     open: boolean;
     setOpen: (e: undefined) => void;
