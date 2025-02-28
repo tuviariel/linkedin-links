@@ -1,16 +1,16 @@
-import { listObject } from "../../pages/CryptoDashboard/CryptoDashboard";
+import { ListObject } from "../../contexts/context";
 import Button from "../Button";
 import up from "../../assets/images/up.svg";
 import down from "../../assets/images/down.svg";
 interface ListItemProps {
-    item: listObject;
+    item: ListObject;
     index: number;
     openDetail: (index: number) => void;
     addToWatchList: (index: number) => void;
     removeFromWatchList: (index: number) => void;
     watchedList: boolean;
 }
-const ListItem = (props: ListItemProps) => {
+export const ListItem = (props: ListItemProps) => {
     const { item, index, openDetail, addToWatchList, removeFromWatchList, watchedList } = props;
     return (
         <li key={item.id} className="flex p-1 border m-1 rounded">
@@ -43,4 +43,3 @@ const ListItem = (props: ListItemProps) => {
         </li>
     );
 };
-export default ListItem;

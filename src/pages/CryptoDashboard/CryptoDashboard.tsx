@@ -3,19 +3,13 @@ import Dialog from "../../components/Dialog";
 import ListItem from "../../components/ListItem";
 import CryptoDetail from "../CryptoDetail";
 import { getCryptosList } from "../../services/service";
-
-export interface listObject {
-    id: string;
-    name: string;
-    current_price: number;
-    image: string;
-    price_change_percentage_24h: number;
-}
+import { useCrypto } from "../../contexts/context";
+import { ListObject } from "../../contexts/context";
 
 export const CryptoDashboard = () => {
-    const [coinList, setCoinList] = useState<listObject[]>([]);
-    const [watchedList, setWatchedList] = useState<listObject[]>([]);
-    const [modalCurrencyObject, setModalCurrencyObject] = useState<listObject>();
+    const { modalCurrencyObject, setModalCurrencyObject } = useCrypto();
+    const [coinList, setCoinList] = useState<ListObject[]>([]);
+    const [watchedList, setWatchedList] = useState<ListObject[]>([]);
     useEffect(() => {
         const getList = async () => {
             try {
@@ -25,7 +19,7 @@ export const CryptoDashboard = () => {
                     throw new Error(`Response status: ${res.status}`);
                 }
                 setCoinList(res.data);
-                console.log(res);
+                // console.log(res);
             } catch (err: any) {
                 console.error(err.message);
             }
@@ -35,6 +29,7 @@ export const CryptoDashboard = () => {
 
     const openDetail = useCallback((index: number) => {
         setModalCurrencyObject(coinList[index]);
+        // console.log(index);
     }, []);
     const addToWatchList = (index: number) => {
         console.log(index);
@@ -75,6 +70,7 @@ export const CryptoDashboard = () => {
                         {watchedList.map((item, index) => {
                             return (
                                 <ListItem
+                                    key={item.id}
                                     item={item}
                                     index={index}
                                     openDetail={openDetail}
@@ -93,6 +89,7 @@ export const CryptoDashboard = () => {
                         {coinList.map((item, index) => {
                             return (
                                 <ListItem
+                                    key={item.id}
                                     item={item}
                                     index={index}
                                     openDetail={openDetail}
@@ -109,7 +106,7 @@ export const CryptoDashboard = () => {
                 size="large"
                 data="cryptoDetail"
                 disableOverlayClose={true}>
-                <CryptoDetail currencyObject={modalCurrencyObject} />
+                <CryptoDetail />
             </Dialog>
         </>
     );

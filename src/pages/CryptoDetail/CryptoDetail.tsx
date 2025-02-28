@@ -1,25 +1,22 @@
 import { useEffect, useState } from "react";
 import Select from "../../components/Select";
-import { listObject } from "../CryptoDashboard/CryptoDashboard";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
 import { getCryptosInfoById } from "../../services/service";
+import { useCrypto } from "../../contexts/context";
 
-interface CryptoDetailProps {
-    currencyObject: listObject | undefined;
-}
+export const CryptoDetail = () => {
+    const { modalCurrencyObject } = useCrypto();
 
-export const CryptoDetail: React.FC<CryptoDetailProps> = (props) => {
-    const { currencyObject } = props;
     const [currencyData, setCurrencyData] = useState<any[]>([]);
     const [currency, setCurrency] = useState<string>("usd");
     const [days, setDays] = useState<string>("30");
-    console.log(currencyObject);
+    console.log(modalCurrencyObject);
     useEffect(() => {
         const getData = async () => {
             try {
                 let queryParams = { vs_currency: currency, days: days };
-                if (currencyObject?.id) {
-                    const res = await getCryptosInfoById(queryParams, currencyObject.id);
+                if (modalCurrencyObject?.id) {
+                    const res = await getCryptosInfoById(queryParams, modalCurrencyObject.id);
                     if (!res.data) {
                         throw new Error(`Response status: ${res.status}`);
                     }
@@ -33,14 +30,14 @@ export const CryptoDetail: React.FC<CryptoDetailProps> = (props) => {
                 console.error(err.message);
             }
         };
-        currencyObject?.id && getData();
-    }, [currencyObject?.id, days, currency]);
+        modalCurrencyObject?.id && getData();
+    }, [modalCurrencyObject?.id, days, currency]);
 
-    console.log(currencyData);
+    // console.log(currencyData);
     return (
         <>
             <h3 className="underline">
-                Details of <span className="capitalize font-bold">{currencyObject?.name}</span>
+                Details of <span className="capitalize font-bold">{modalCurrencyObject?.name}</span>
             </h3>
             <div className="flex">
                 <Select
@@ -72,7 +69,7 @@ export const CryptoDetail: React.FC<CryptoDetailProps> = (props) => {
                 </Select>
             </div>
             <LineChart
-                width={500}
+                width={700}
                 height={300}
                 data={currencyData}
                 margin={{
@@ -90,4 +87,3 @@ export const CryptoDetail: React.FC<CryptoDetailProps> = (props) => {
         </>
     );
 };
-// export default memo(CryptoDetail);
