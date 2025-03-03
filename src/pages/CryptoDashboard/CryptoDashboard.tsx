@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import Dialog from "../../components/Dialog";
 import ListItem from "../../components/ListItem";
 import CryptoDetail from "../CryptoDetail";
+import Loading from "../../assets/images/crypto.jpeg";
 import { getCryptosList } from "../../services/service";
 import { useCrypto } from "../../contexts/context";
 import { ListObject } from "../../contexts/context";
@@ -111,7 +112,10 @@ export const CryptoDashboard = () => {
             ) : errorMessage ? (
                 <div>{errorMessage}</div>
             ) : (
-                <div>Loading...</div>
+                <div className="flex flex-col-reverse">
+                    <div>Loading...</div>
+                    <img src={Loading} alt="Loading..." className="mx-auto" />
+                </div>
             )}
             <Dialog
                 open={modalCurrencyObject?.id ? true : false}

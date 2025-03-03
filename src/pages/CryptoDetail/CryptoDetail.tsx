@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Select from "../../components/Select";
+import Loading from "../../assets/images/crypto.jpeg";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
 import { getCryptosInfoById } from "../../services/service";
 import { useCrypto } from "../../contexts/context";
@@ -104,7 +105,10 @@ export const CryptoDetail = () => {
             ) : errorMessage ? (
                 <div>{errorMessage}</div>
             ) : (
-                <div>Loading...</div>
+                <div className="flex flex-col-reverse">
+                    <div>Loading...</div>
+                    <img src={Loading} alt="Loading..." className="mx-auto" />
+                </div>
             )}
         </>
     );
