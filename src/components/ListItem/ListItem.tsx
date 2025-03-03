@@ -10,6 +10,11 @@ interface ListItemProps {
     removeFromWatchList: (index: number) => void;
     watchedList: boolean;
 }
+/**
+ * ListItem component- a component for every item in the list of cryptoCoins
+ * @param props item, index, openDetail, addToWatchList, removeFromWatchList, watchedList
+ * @returns a Listitem Component
+ */
 export const ListItem = (props: ListItemProps) => {
     const { item, index, openDetail, addToWatchList, removeFromWatchList, watchedList } = props;
     return (

@@ -4,14 +4,22 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts"
 import { getCryptosInfoById } from "../../services/service";
 import { useCrypto } from "../../contexts/context";
 
+/**
+ * Crypto Details page- currently used as the modal content from withing the dashboard
+ * @param props none. Gets data by calling the CryptoGecko API by currency Id.
+ * @returns the crypto details displayed in a graph.
+ */
+
 export const CryptoDetail = () => {
     const { modalCurrencyObject } = useCrypto();
 
     const [currencyData, setCurrencyData] = useState<any[]>([]);
     const [currency, setCurrency] = useState<string>("usd");
     const [days, setDays] = useState<string>("30");
-    console.log(modalCurrencyObject);
+    const [errorMessage, setErrorMessage] = useState<string>("");
+    // console.log(modalCurrencyObject);
     useEffect(() => {
+        //getting info through API service:
         const getData = async () => {
             try {
                 let queryParams = { vs_currency: currency, days: days };
@@ -28,6 +36,7 @@ export const CryptoDetail = () => {
                 }
             } catch (err: any) {
                 console.error(err.message);
+                setErrorMessage(err.message);
             }
         };
         modalCurrencyObject?.id && getData();
@@ -39,51 +48,64 @@ export const CryptoDetail = () => {
             <h3 className="underline">
                 Details of <span className="capitalize font-bold">{modalCurrencyObject?.name}</span>
             </h3>
-            <div className="flex">
-                <Select
-                    value={currency}
-                    onChange={(e) => setCurrency(e.target.value)}
-                    label="Coin Value in Currency">
-                    <>
-                        <option value="usd">USD - American Dollar</option>
-                        <option value="eur">EUR - European Euro</option>
-                        <option value="gbp">GBP - Great Britain Pound</option>
-                        <option value="ils">ILS - Israeli New Shekel</option>
-                    </>
-                </Select>
-                <Select
-                    value={days}
-                    onChange={(e) => setDays(e.target.value)}
-                    label="History Length">
-                    <>
-                        <option value="5">5 Days</option>
-                        <option value="10">10 Days</option>
-                        <option value="15">15 Days</option>
-                        <option value="30">1 Month</option>
-                        <option value="60">2 Months</option>
-                        <option value="90">3 Months</option>
-                        <option value="180">6 Months</option>
-                        <option value="270">9 Months</option>
-                        <option value="365">1 Year</option>
-                    </>
-                </Select>
-            </div>
-            <LineChart
-                width={700}
-                height={300}
-                data={currencyData}
-                margin={{
-                    top: 5,
-                    right: 30,
-                    left: 20,
-                    bottom: 5,
-                }}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="time" />
-                <YAxis />
-                <Tooltip />
-                <Line type="monotone" dataKey="price" stroke="#8884d8" activeDot={{ r: 3 }} />
-            </LineChart>
+            {currencyData ? (
+                <>
+                    <div className="flex">
+                        <Select
+                            value={currency}
+                            onChange={(e) => setCurrency(e.target.value)}
+                            label="Coin Value in Currency">
+                            <>
+                                <option value="usd">USD - American Dollar</option>
+                                <option value="eur">EUR - European Euro</option>
+                                <option value="gbp">GBP - Great Britain Pound</option>
+                                <option value="ils">ILS - Israeli New Shekel</option>
+                            </>
+                        </Select>
+                        <Select
+                            value={days}
+                            onChange={(e) => setDays(e.target.value)}
+                            label="History Length">
+                            <>
+                                <option value="5">5 Days</option>
+                                <option value="10">10 Days</option>
+                                <option value="15">15 Days</option>
+                                <option value="30">1 Month</option>
+                                <option value="60">2 Months</option>
+                                <option value="90">3 Months</option>
+                                <option value="180">6 Months</option>
+                                <option value="270">9 Months</option>
+                                <option value="365">1 Year</option>
+                            </>
+                        </Select>
+                    </div>
+                    <LineChart
+                        width={700}
+                        height={300}
+                        data={currencyData}
+                        margin={{
+                            top: 5,
+                            right: 30,
+                            left: 20,
+                            bottom: 5,
+                        }}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="time" />
+                        <YAxis />
+                        <Tooltip />
+                        <Line
+                            type="monotone"
+                            dataKey="price"
+                            stroke="#8884d8"
+                            activeDot={{ r: 3 }}
+                        />
+                    </LineChart>
+                </>
+            ) : errorMessage ? (
+                <div>{errorMessage}</div>
+            ) : (
+                <div>Loading...</div>
+            )}
         </>
     );
 };

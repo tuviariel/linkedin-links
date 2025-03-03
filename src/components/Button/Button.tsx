@@ -6,7 +6,11 @@ interface ButtonProps {
     label: string;
     children: ReactElement;
 }
-
+/**
+ * Button component- enables adding a styled button to any page or component
+ * @param props onClick, className, style, label, children
+ * @returns a button that can be wrapped around more tsx elements (children)
+ */
 export const Button: React.FC<Partial<ButtonProps>> = (props) => {
     const { className = "", onClick, label, children = "" } = props;
 

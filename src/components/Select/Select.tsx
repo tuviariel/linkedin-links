@@ -7,7 +7,11 @@ interface SelectProps {
     value: string;
     children: ReactElement;
 }
-
+/**
+ * Select component- enables adding a select input element to any page or component
+ * @param props onChange, classname, label, value, children (the options tags)
+ * @returns the select input as a component while wrapped around the option tags as children
+ */
 export const Select: React.FC<Partial<SelectProps>> = (props) => {
     const { className = "", onChange, value, label, children = "" } = props;
 

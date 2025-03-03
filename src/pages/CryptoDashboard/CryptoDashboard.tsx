@@ -6,11 +6,19 @@ import { getCryptosList } from "../../services/service";
 import { useCrypto } from "../../contexts/context";
 import { ListObject } from "../../contexts/context";
 
+/**
+ * Crypto Dashboard page- currentlly the apps main page ('/' route)
+ * @param props none. Gets data by calling the CryptoGecko API.
+ * @returns the main dashboard page with sub components.
+ */
+
 export const CryptoDashboard = () => {
     const { modalCurrencyObject, setModalCurrencyObject } = useCrypto();
     const [coinList, setCoinList] = useState<ListObject[]>([]);
     const [watchedList, setWatchedList] = useState<ListObject[]>([]);
+    const [errorMessage, setErrorMessage] = useState<string>("");
     useEffect(() => {
+        //getting info through API service:
         const getList = async () => {
             try {
                 let queryParams = { vs_currency: "usd" };
@@ -22,22 +30,23 @@ export const CryptoDashboard = () => {
                 // console.log(res);
             } catch (err: any) {
                 console.error(err.message);
+                setErrorMessage(err.message);
             }
         };
         getList();
     }, []);
-
+    //opening Modal with coin information:
     const openDetail = useCallback((index: number) => {
         setModalCurrencyObject(coinList[index]);
         // console.log(index);
     }, []);
+    //moving coin from main list to watched list:
     const addToWatchList = (index: number) => {
         console.log(index);
         const object = coinList[index];
         setWatchedList((prev) => {
             return [...prev, object];
         });
-
         setCoinList((prev) => {
             let arr = prev.filter((item) => {
                 return item.id !== object.id;
@@ -45,13 +54,13 @@ export const CryptoDashboard = () => {
             return arr;
         });
     };
+    //moving coin from watched list back to main list:
     const removeFromWatchList = (index: number) => {
         console.log(index);
         const object = watchedList[index];
         setCoinList((prev) => {
             return [object, ...prev];
         });
-
         setWatchedList((prev) => {
             let arr = prev.filter((item) => {
                 return item.id !== object.id;
@@ -82,7 +91,7 @@ export const CryptoDashboard = () => {
                     </ol>
                 </>
             )}
-            {coinList.length > 0 && (
+            {coinList.length > 0 ? (
                 <>
                     {watchedList.length > 0 && <div className="">Un-Watched List</div>}
                     <ol>
@@ -99,6 +108,10 @@ export const CryptoDashboard = () => {
                         })}
                     </ol>
                 </>
+            ) : errorMessage ? (
+                <div>{errorMessage}</div>
+            ) : (
+                <div>Loading...</div>
             )}
             <Dialog
                 open={modalCurrencyObject?.id ? true : false}

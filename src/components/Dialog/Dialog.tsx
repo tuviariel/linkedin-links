@@ -7,7 +7,11 @@ interface DialogProps {
     disableOverlayClose: boolean;
     children: ReactElement;
 }
-
+/**
+ * Dialog component- enables adding a dialog to any page or component
+ * @param props open, setOpen, size, data, disableOverlayClose, children
+ * @returns dialog that should be wrapped around the children
+ */
 export const Dialog: React.FC<DialogProps> = (props) => {
     const {
         open,
@@ -51,4 +55,3 @@ export const Dialog: React.FC<DialogProps> = (props) => {
         </div>
     );
 };
-// export default Dialog;
