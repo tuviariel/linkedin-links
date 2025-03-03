@@ -1,5 +1,5 @@
 import axios from "axios";
-import config from "../../config";
+import { config } from "../util/config";
 const API_URL = config["GECKO_API_URL"];
 const GECKO_QUERY_KEY_PARAM = config["GECKO_QUERY_PARAM"];
 //creating an Axios API instance:
