@@ -4,6 +4,7 @@ import Loading from "../../assets/images/crypto.jpeg";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
 import { getCryptosInfoById } from "../../services/service";
 import { useCrypto } from "../../contexts/context";
+import { dateDisplay } from "../../util/utils";
 
 /**
  * Crypto Details page- currently used as the modal content from withing the dashboard
@@ -30,8 +31,7 @@ export const CryptoDetail = () => {
                         throw new Error(`Response status: ${res.status}`);
                     }
                     const currData = res.data.prices.map((arr: any[]) => {
-                        const date = new Date(arr[0]);
-                        return { time: date.toLocaleDateString("he-IL"), price: arr[1] };
+                        return { time: dateDisplay(arr[0]), price: arr[1] };
                     });
                     setCurrencyData(currData);
                 }
