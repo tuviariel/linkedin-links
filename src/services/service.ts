@@ -1,9 +1,9 @@
 import api from "./api";
-//The cryptoGecko API service:
+//The "..." API service:
 
 /**
- * The main list of basic info of crypto coins
- * @param props currency to generate the data (currently permanently "usd")
+ * The main list of basic info
+ * @param props currently generate the data (currently permanently "usd")
  * @returns the response data
  */
 export const getCryptosList = async (params: object) => {
@@ -13,8 +13,8 @@ export const getCryptosList = async (params: object) => {
 };
 
 /**
- * The history data of the crypto coins
- * @param props pathParams - the coin ID requested. queryParams - the history range. Made to change upon user change selection.
+ * More Information per ID
+ * @param props pathParams - the ID requested. queryParams - the history range. Made to change upon user change selection.
  * @returns the response data
  */
 export const getCryptosInfoById = async (params: object, pathParams: string) => {

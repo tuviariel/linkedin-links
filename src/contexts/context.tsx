@@ -8,33 +8,33 @@ export interface ListObject {
     price_change_percentage_24h: number;
 }
 
-interface CryptoContextType {
+interface ContextType {
     modalCurrencyObject: ListObject | undefined;
     setModalCurrencyObject: React.Dispatch<React.SetStateAction<ListObject | undefined>>;
 }
 // Create the context with a default value:
-const CryptoContext = createContext<CryptoContextType | undefined>(undefined);
+const AppContext = createContext<ContextType | undefined>(undefined);
 
-interface CryptoProviderprops {
+interface ContextProviderProps {
     children: ReactNode;
 }
 // The CryptoProvider wrapped around the app:
-const CryptoProvider: React.FC<CryptoProviderprops> = ({ children }) => {
+const ContextProvider: React.FC<ContextProviderProps> = ({ children }) => {
     const [modalCurrencyObject, setModalCurrencyObject] = useState<ListObject | undefined>();
     console.log(modalCurrencyObject);
     return (
-        <CryptoContext.Provider value={{ modalCurrencyObject, setModalCurrencyObject }}>
+        <AppContext.Provider value={{ modalCurrencyObject, setModalCurrencyObject }}>
             {children}
-        </CryptoContext.Provider>
+        </AppContext.Provider>
     );
 };
 // The context to be used in other pages / components:
-const useCrypto = (): CryptoContextType => {
-    const context = useContext(CryptoContext);
+const useAppContext = (): ContextType => {
+    const context = useContext(AppContext);
     if (context === undefined) {
         throw new Error("useCrypto must be used within a CryptoProvider");
     }
     return context;
 };
 // exporting external usage:
-export { useCrypto, CryptoProvider };
+export { useAppContext, ContextProvider };

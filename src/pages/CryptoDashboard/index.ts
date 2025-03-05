@@ -1,1 +1,1 @@
-export { CryptoDashboard as default } from "./CryptoDashboard";
+export { Dashboard as default } from "./CryptoDashboard";

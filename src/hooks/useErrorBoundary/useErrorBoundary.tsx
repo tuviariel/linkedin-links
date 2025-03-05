@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-
 /**
  * Error Boundary Hook- A hook designed to through and catch all app errors that were not caught locally
  * @param props none. checks for error events through the global window

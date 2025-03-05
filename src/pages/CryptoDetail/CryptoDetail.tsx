@@ -3,7 +3,7 @@ import Select from "../../components/Select";
 import Loading from "../../assets/images/crypto.jpeg";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
 import { getCryptosInfoById } from "../../services/service";
-import { useCrypto } from "../../contexts/context";
+import { useAppContext } from "../../contexts/context";
 import { dateDisplay } from "../../util/utils";
 
 /**
@@ -12,8 +12,8 @@ import { dateDisplay } from "../../util/utils";
  * @returns the crypto details displayed in a graph.
  */
 
-export const CryptoDetail = () => {
-    const { modalCurrencyObject } = useCrypto();
+export const Detail = () => {
+    const { modalCurrencyObject } = useAppContext();
 
     const [currencyData, setCurrencyData] = useState<any[]>([]);
     const [currency, setCurrency] = useState<string>("usd");

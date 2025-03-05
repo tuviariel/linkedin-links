@@ -4,17 +4,17 @@ import ListItem from "../../components/ListItem";
 import CryptoDetail from "../CryptoDetail";
 import Loading from "../../assets/images/crypto.jpeg";
 import { getCryptosList } from "../../services/service";
-import { useCrypto } from "../../contexts/context";
+import { useAppContext } from "../../contexts/context";
 import { ListObject } from "../../contexts/context";
 
 /**
- * Crypto Dashboard page- currentlly the apps main page ('/' route)
+ * Dashboard page- currentlly the apps main page ('/' route)
  * @param props none. Gets data by calling the CryptoGecko API.
  * @returns the main dashboard page with sub components.
  */
 
-export const CryptoDashboard = () => {
-    const { modalCurrencyObject, setModalCurrencyObject } = useCrypto();
+export const Dashboard = () => {
+    const { modalCurrencyObject, setModalCurrencyObject } = useAppContext();
     const [coinList, setCoinList] = useState<ListObject[]>([]);
     const [watchedList, setWatchedList] = useState<ListObject[]>([]);
     const [errorMessage, setErrorMessage] = useState<string>("");
@@ -81,7 +81,7 @@ export const CryptoDashboard = () => {
                             return (
                                 <ListItem
                                     key={item.id}
-                                    item={item}
+                                    item={item || undefined}
                                     index={index}
                                     openDetail={openDetail}
                                     removeFromWatchList={removeFromWatchList}
@@ -100,7 +100,7 @@ export const CryptoDashboard = () => {
                             return (
                                 <ListItem
                                     key={item.id}
-                                    item={item}
+                                    item={item || undefined}
                                     index={index}
                                     openDetail={openDetail}
                                     addToWatchList={addToWatchList}
