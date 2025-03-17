@@ -1,6 +1,6 @@
 // import React, { Suspense } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router";
-import CryptoDashboard from "../pages/CryptoDashboard";
+import Dashboard from "../pages/LinksDashboard";
 import { route_paths } from "../util/config";
 const DASHBOARD = route_paths["DASHBOARD"];
 // const DETAIL = route_paths['DETAIL'];
@@ -17,9 +17,7 @@ export default function AppRoutes() {
         <Router>
             {/* <Suspense fallback={<div>Loading...</div>}> */}
             <Routes>
-                {/* <Route path="/add" element={<Add />} /> */}
-                {/* <Route path={DETAIL} element={<Detail />} /> */}
-                <Route path={DASHBOARD} element={<CryptoDashboard />} />
+                <Route path={DASHBOARD} element={<Dashboard />} />
             </Routes>
             {/* </Suspense> */}
         </Router>
