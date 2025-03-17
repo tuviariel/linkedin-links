@@ -13,13 +13,13 @@ interface JobProps {
 /**
  * NewConnection component:
  * @param props none
- * @returns the checkbox list bar.
+ * @returns the recommended connection with connect buttons.
  */
 export const Job = (props: JobProps) => {
     const { data, onClick } = props;
     return (
         <div className="flex mt-2 mb-3 py-auto">
-            <img src={data.image || JobImage} alt={data.company} className="h-14 w-14 mx-3" />
+            <img src={data.image || JobImage} alt={data.company} className="h-14 w-14 mr-3" />
             <div className="flex flex-col my-auto">
                 <div className="font-semibold">{data.position}</div>
                 <div className="text-[#4F6E96]">{data.company}</div>

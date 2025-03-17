@@ -19,10 +19,10 @@ export const NewConnection = (props: NewConnectionProps) => {
     // console.log(addedConnections, likedPosts, commentedPosts);
     return (
         <div className="flex mt-2 mb-3 py-auto">
-            <img src={data.image} alt={data.name} className="h-14 w-14 mx-3 rounded-full border" />
+            <img src={data.image} alt={data.name} className="h-14 w-14 mr-3 rounded-full border" />
             <div className="flex flex-col my-auto">
                 <div className="font-semibold">{data.name}</div>
-                <div className="text-[#4F6E96]">{data.title}</div>
+                <div className="text-[#4F6E96] text-sm">{data.title}</div>
             </div>
             <Button
                 onClick={() => onClick(data.id)}

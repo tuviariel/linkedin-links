@@ -21,11 +21,21 @@ export const NewConnections = () => {
             <h3 className="font-bold">Explore new Connections</h3>
             <NewConnection
                 onClick={connect}
-                data={{ image: "rthr", name: "dfvdsv", title: "sdfvsdf", id: "sefvsekvjr34" }}
+                data={{
+                    image: "rthr",
+                    name: "Tina Zhang",
+                    title: "Product manager at Google",
+                    id: "sefvsekvjr34",
+                }}
             />
             <NewConnection
                 onClick={connect}
-                data={{ image: "rthr", name: "dfvdsv", title: "sdfvsdf", id: "sefvsekvjr34" }}
+                data={{
+                    image: "rthr",
+                    name: "Karthik Srinivasan",
+                    title: "Software Engineer at Amazon",
+                    id: "rgevbkrg4u4v4",
+                }}
             />
         </div>
     );

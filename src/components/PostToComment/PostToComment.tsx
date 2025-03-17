@@ -17,19 +17,19 @@ interface UserDataObject {
  * @returns the checkbox list bar.
  */
 export const PostToComment = () => {
-    const [data, setData] = useState<UserDataObject | null>({
-        image: "https...",
-        name: "Joice Diaz",
-        content: "Just finished a great book...",
-        likesNumber: 12,
-        commentsNumber: 3,
-        rePostsNumber: 1,
-        id: "egtrb5g4vvw4",
-    });
+    const [data, setData] = useState<UserDataObject | null>(null);
     useEffect(() => {
         const getPostData = () => {
             try {
-                // setData();
+                setData({
+                    image: "https...",
+                    name: "Joice Diaz",
+                    content: "Just finished a great book...",
+                    likesNumber: 12,
+                    commentsNumber: 3,
+                    rePostsNumber: 1,
+                    id: "egtrb5g4vvw4",
+                });
             } catch (err) {}
         };
         getPostData();
@@ -45,13 +45,13 @@ export const PostToComment = () => {
     };
     // console.log(addedConnections, likedPosts, commentedPosts);
     return (
-        <div className="flex-col mb-6">
+        <div className="flex-col mb-2">
             <h3 className="font-bold">Post to Like and Comment on</h3>
             <div className="flex mt-2 mb-3 py-auto">
                 <img
                     src={data?.image}
                     alt={data?.name}
-                    className="h-10 w-10 mx-3 rounded-full border"
+                    className="h-10 w-10 mr-3 rounded-full border"
                 />
                 <div className="flex flex-col my-auto font-semibold">{data?.name}</div>
             </div>
