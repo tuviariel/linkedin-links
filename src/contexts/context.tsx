@@ -18,7 +18,7 @@ const AppContext = createContext<ContextType | undefined>(undefined);
 interface ContextProviderProps {
     children: ReactNode;
 }
-// The CryptoProvider wrapped around the app:
+// The ContextProvider wrapped around the app:
 const ContextProvider: React.FC<ContextProviderProps> = ({ children }) => {
     const [userData, setUserData] = useState<userData | undefined>();
     console.log(userData);
@@ -28,7 +28,7 @@ const ContextProvider: React.FC<ContextProviderProps> = ({ children }) => {
 const userContext = (): ContextType => {
     const context = useContext(AppContext);
     if (context === undefined) {
-        throw new Error("useCrypto must be used within a CryptoProvider");
+        throw new Error("userContext must be used within a ContextProvider");
     }
     return context;
 };

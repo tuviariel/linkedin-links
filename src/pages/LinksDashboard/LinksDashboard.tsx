@@ -1,15 +1,13 @@
 // import { useCallback, useEffect, useState } from "react";
 // import Dialog from "../../components/global/Dialog";
 import LinksSideBar from "../LinksSideBar";
-// import CryptoDetail from "../CryptoDetail";
-// import Loading from "../../assets/images/crypto.jpeg";
 import {} from "../../services/service";
 // import { useAppContext } from "../../contexts/context";
 import {} from "../../contexts/context";
 
 /**
  * Dashboard page- currently the apps main page ('/' route)
- * @param props none. Gets data by calling the CryptoGecko API.
+ * @param props none. Gets data by calling the ....
  * @returns the main dashboard page with sub components.
  */
 
